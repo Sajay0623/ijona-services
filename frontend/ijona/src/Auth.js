@@ -13,7 +13,7 @@ import {
   Text,
   useColorModeValue,
   InputRightElement,
-  InputGroup
+  InputGroup,
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 const AuthPage = ({ onLogin }) => {
@@ -22,27 +22,20 @@ const AuthPage = ({ onLogin }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = () => {
-    // Perform form validation
-   
-         
     // Perform authentication (mocked for this example)
     if (username === "user" && password === "password") {
       onLogin(username);
-    } else {
-    //   setError("Invalid username or password");
     }
   };
 
   return (
     <Flex
       minH={"100vh"}
-      
       align={"center"}
       justify={"center"}
       bg={useColorModeValue("gray.50", "gray.800")}
     >
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
-        
         <Box
           rounded={"lg"}
           bg={useColorModeValue("white", "gray.700")}
@@ -62,9 +55,11 @@ const AuthPage = ({ onLogin }) => {
             <FormControl id="password" isRequired>
               <FormLabel>Password</FormLabel>
               <InputGroup>
-                <Input type={showPassword ? "text" : "password"}
-                value={password}
-                onChange={(e)=>setPassword(e.target.value)} />
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
                 <InputRightElement h={"full"}>
                   <Button
                     variant={"ghost"}

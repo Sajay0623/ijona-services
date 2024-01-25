@@ -1,11 +1,9 @@
- 
 import React, { useState } from "react";
- 
+
 import DataTable from "./DataTable";
-import {DataProvider } from "./DataContext";
+import { DataProvider } from "./DataContext";
 import AuthPage from "./Auth";
 import { Box, Button, Flex, Heading } from "@chakra-ui/react";
- 
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -22,17 +20,13 @@ const App = () => {
     <div>
       {user ? (
         <Box>
-          <Heading ml={"20px"} > {user}</Heading>
+          <Heading ml={"20px"}> {user}</Heading>
 
           <DataTable />
         </Box>
       ) : (
         <AuthPage onLogin={handleLogin} />
       )}
-
-      {/* <Button m={"auto"} onClick={handleLogout}>
-        Logout
-      </Button> */}
     </div>
   );
 };
