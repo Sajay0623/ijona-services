@@ -33,7 +33,7 @@ const DataProvider = ({ children }) => {
     lengthOfData();
   }, [limit, page]);
 
-  const addData = () => {
+  const addData = (closeFun) => {
     fetch(
       `https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=${limit}`,
       {
@@ -51,6 +51,7 @@ const DataProvider = ({ children }) => {
       .then((addedData) => {
         setData((data) => [...data, addedData]);
       });
+      closeFun()
   };
 
   const deleteData = async (id) => {

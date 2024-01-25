@@ -109,7 +109,7 @@ const DataTable = () => {
             <Button mr={"20px"} bg={"transparent"} onClick={onClose}>
               Go Back
             </Button>
-            <Button colorScheme="blue" mr={3} onClick={addData}>
+            <Button colorScheme="blue" mr={3} onClick={()=>addData(onClose)}>
               Add
             </Button>
           </ModalFooter>
