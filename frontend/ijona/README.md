@@ -15,28 +15,31 @@ The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
 ## Login Page 
+Login and Logout Functionality
 
 Default Login UserName is "user"
 Default Login Password is "password"
 
-![App Snapshot]("https://i.postimg.cc/qqYrY4WS/login.jpg")
+![App Snapshot]
+<img src = "https://i.postimg.cc/qqYrY4WS/login.jpg" alt = "login" />
 
 ## Dashboard
 
-![App Snapshot]("https://i.postimg.cc/C5dYmzrb/dashboard.png")
+![App Snapshot]
+<img src = "https://i.postimg.cc/C5dYmzrb/dashboard.png" alt = "dashboard.png" />
 
 ## Adding A user
 
-![App Snapshot]("https://i.postimg.cc/j5MtHzcs/Adding-User.png")
+![App Snapshot]
+<img src = "https://i.postimg.cc/j5MtHzcs/Adding-User.png" alt = "Adding-User" />
+ 
 
 ## Loading
 
-![App Snapshot]("https://i.postimg.cc/sDQsWGhr/loadind.png")
+![App Snapshot]
+<img src = "https://i.postimg.cc/sDQsWGhr/loadind.png" alt = "loadind" />
 
 ## Select Tab for selecting the Items per page
 
-![App Snapshot]("https://i.postimg.cc/SNBqfQ6z/items-Per-Page.png)
-
-## Edit Functionality
-
-![App Snapshot]("https://i.postimg.cc/G3Sb9x9K/EditData.png")
+![App Snapshot]
+<img src = "https://i.postimg.cc/SNBqfQ6z/items-Per-Page.png" alt = "items-Per-Page" />

@@ -6,10 +6,8 @@ import { Box, Button, Center, Flex, Text } from "@chakra-ui/react";
 
 const Pagination = () => {
    
-const { data, datalength, page, limit, setPage } = useContext(DataContext);
-  const indexOfLastItem = page * limit;
-  const indexOfFirstItem = indexOfLastItem - limit;
-   const totalPages = Math.ceil(datalength / limit);
+const {  datalength, page, limit, setPage } = useContext(DataContext);
+const totalPages = Math.ceil(datalength / limit);
    const startItem = (page - 1) * limit + 1;
    const endItem = Math.min(startItem + limit - 1, datalength);
   const handlePageAdd = () => {
