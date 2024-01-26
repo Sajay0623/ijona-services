@@ -1,63 +1,90 @@
 // DataContext.js
 import React, { createContext, useEffect, useState } from "react";
+import axios from "axios";
 
+// creation of context
 const DataContext = createContext();
 
+//Proving the context to app
 const DataProvider = ({ children }) => {
   const [data, setData] = useState([]);
-  const [datalength, setDataLength] = useState(10);
-  const [limit, setLimit] = useState(1);
+  const [datalength, setDataLength] = useState(null);
+  const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(1);
   const [name, setName] = useState("");
-
   const [email, setEmail] = useState("");
+  const [loading , setLoading] = useState(false)
+  const url = new URL(
+    "https://65b3b050770d43aba47a3e2e.mockapi.io/mock/ijona/users"
+  );
+  url.searchParams.append("page", page);
+  url.searchParams.append("limit", limit);
 
-  const initialData = async () => {
-    await fetch(
-      `https://jsonplaceholder.typicode.com/users?_page=${page}&_limit=${limit}`
-    )
-      .then((response) => response.json())
-      .then((json) => {
-        setData(json);
-        console.log(json);
-      })
-      .catch((err) => console.log(err));
-  };
-  const lengthOfData = async () => {
-    await fetch("")
-      .then((res) => res.json())
-      .then((res) => setDataLength(res.length));
-  };
   useEffect(() => {
     initialData();
     lengthOfData();
   }, [limit, page]);
 
-  const addData = (closeFun) => {
-    fetch(
-      `https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=${limit}`,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          email: email,
-          name: name,
-        }),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      }
-    )
-      .then((data) => data.json())
-      .then((addedData) => {
-        setData((data) => [...data, addedData]);
+  // Function for calculating the original length of the fetched Data
+
+  const lengthOfData = async () => {
+    setLoading(true)
+    await fetch("https://65b3b050770d43aba47a3e2e.mockapi.io/mock/ijona/users")
+      .then((res) => res.json())
+      .then((res) => { setLoading(false) ; setDataLength(res.length);});
+  };
+  console.log(datalength, "dataLength");
+
+  // Fetching the rendered data
+  const initialData = async () => {
+      setLoading(true);
+      await fetch(url, {
+      method: "GET",
+      headers: { "content-type": "application/json" },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        // handle error
+      })
+      .then((users) => {
+        setLoading(false)
+        setData(users);
+      })
+      .catch((error) => {
+        // handle error
+        console.log(error);
+        setLoading(false)
       });
-      closeFun()
   };
 
+  // function for adding the data
+  const addData = (closeFun) => {
+    setLoading(true);
+    fetch(`${url}`, {
+      method: "POST",
+      body: JSON.stringify({
+        email: email,
+        name: name,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((data) => data.json())
+      .then((addedData) => {
+         setLoading(false)
+        initialData();
+        lengthOfData();
+      });
+    closeFun();
+  };
+  // function for deleting the data
   const deleteData = async (id) => {
-    console.log(id, "deleteId");
+    setLoading(true);
     await fetch(
-      `https://jsonplaceholder.typicode.com/posts/${id}?_page=${page}&_limit=${limit}`,
+      `https://65b3b050770d43aba47a3e2e.mockapi.io/mock/ijona/users/${id}`,
       {
         method: "DELETE",
       }
@@ -66,11 +93,9 @@ const DataProvider = ({ children }) => {
         if (res.status !== 200) {
           return;
         } else {
-          setData(
-            data.filter((e) => {
-              return e.id != id;
-            })
-          );
+           setLoading(false)
+          initialData();
+          lengthOfData();
         }
       })
       .catch((err) => console.log(err));
@@ -89,8 +114,9 @@ const DataProvider = ({ children }) => {
         page,
         setPage,
         addData,
-
         deleteData,
+        initialData,
+        loading
       }}
     >
       {children}

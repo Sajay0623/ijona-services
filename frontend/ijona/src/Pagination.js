@@ -9,7 +9,9 @@ const Pagination = () => {
 const { data, datalength, page, limit, setPage } = useContext(DataContext);
   const indexOfLastItem = page * limit;
   const indexOfFirstItem = indexOfLastItem - limit;
-   
+   const totalPages = Math.ceil(datalength / limit);
+   const startItem = (page - 1) * limit + 1;
+   const endItem = Math.min(startItem + limit - 1, datalength);
   const handlePageAdd = () => {
     setPage((page)=>page+1)
   };
@@ -21,8 +23,8 @@ const { data, datalength, page, limit, setPage } = useContext(DataContext);
     <Flex justify={"right"}>
       <Flex justify={""} align={"center"}>
         <Text>
-          Showing {indexOfFirstItem + 1}-
-          {Math.max(indexOfLastItem, data.length)} of {datalength}
+          Showing {startItem}-
+          {endItem}
         </Text>
       </Flex>
       <Box>
@@ -35,7 +37,7 @@ const { data, datalength, page, limit, setPage } = useContext(DataContext);
         </Button>
         <Button
           onClick={handlePageAdd}
-          isDisabled={page >= data.length - 1}
+          isDisabled={page >= totalPages}
           bg={"transparent"}
         >
           {">"}

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
 import DataTable from "./DataTable";
-import { DataProvider } from "./DataContext";
+
 import AuthPage from "./Auth";
-import { Box, Button, Flex, Heading } from "@chakra-ui/react";
+import { Box,  Heading } from "@chakra-ui/react";
 
 const App = () => {
   const [user, setUser] = useState(null);

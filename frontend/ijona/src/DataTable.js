@@ -27,23 +27,27 @@ import {
   FormLabel,
   Text,
   Select,
+  Spinner,
 } from "@chakra-ui/react";
 import Pagination from "./Pagination";
+import PagiComp from "./Page";
 
 const DataTable = () => {
   const {
     data,
     setLimit,
     limit,
+    datalength,
     setData,
     setName,
     setEmail,
     addData,
-    updateData,
+    editData,
     deleteData,
+    initialData,
+    loading
   } = useContext(DataContext);
-  const [newItem, setNewItem] = useState("");
-  const [editItem, setEditItem] = useState(null);
+   
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const initialRef = React.useRef(null);
@@ -58,6 +62,8 @@ const DataTable = () => {
     setEditedName(name);
     setEditedEmail(email);
     setEditModalOpen(true);
+      
+
   };
 
   const saveChanges = () => {
@@ -72,6 +78,13 @@ const DataTable = () => {
     // Close the modal
     setEditModalOpen(false);
   };
+  if(loading) {
+    return (
+      <Flex w={"100%"} h={"100vh"} justify={"center"} align={"center"} >
+        <Spinner size="xl" />
+      </Flex>
+    );
+  }
   return (
     <Box>
       <Flex mt={"40px"} mb={"40px"} justifyContent="right">
@@ -109,7 +122,7 @@ const DataTable = () => {
             <Button mr={"20px"} bg={"transparent"} onClick={onClose}>
               Go Back
             </Button>
-            <Button colorScheme="blue" mr={3} onClick={()=>addData(onClose)}>
+            <Button colorScheme="blue" mr={3} onClick={() => addData(onClose)}>
               Add
             </Button>
           </ModalFooter>
@@ -137,9 +150,9 @@ const DataTable = () => {
           <Tbody>
             {data.map((item) => (
               <Tr key={item.id} borderBottom="1px solid gray">
-                <Td>{item.id}</Td>
-                <Td>{item.name}</Td>
-                <Td>{item.email}</Td>
+                <Td textAlign={"center"}>{item.id}</Td>
+                <Td textAlign={"center"}>{item.name}</Td>
+                <Td textAlign={"center"} >{item.email}</Td>
                 <Td>
                   <Flex justify={"space-around"}>
                     <Button
@@ -167,22 +180,23 @@ const DataTable = () => {
       <Flex align={"center"} justify={"center"} mt={"30px"} mr={"35px"}>
         <Text textAlign={"center"}>Rows per page :</Text>
         <Select
+          w={"70px"}
+          variant="flushed"
+          textAlign={"center"}
+          value={limit}
           onChange={(e) => {
             setLimit(e.target.value);
             console.log(e.target.value);
           }}
-          w={"70px"}
-          variant="flushed"
-          textAlign={"center"}
         >
-          <option value={1}>1</option>
-          <option value={2}>2</option>
-          <option value={3}>3</option>
-          <option value={4}>4</option>
           <option value={5}>5</option>
+          <option value={10}>10</option>
+          <option value={15}>15</option>
+          <option value={20}>20</option>
         </Select>
         <Pagination />
       </Flex>
+      {/* Model for Edit the Existing Data */}
       <Modal isOpen={isEditModalOpen} onClose={() => setEditModalOpen(false)}>
         <ModalOverlay />
         <ModalContent>
@@ -201,7 +215,7 @@ const DataTable = () => {
             />
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={saveChanges}>
+            <Button colorScheme="blue" mr={3} onClick={() => saveChanges()}>
               Save Changes
             </Button>
             <Button onClick={() => setEditModalOpen(false)}>Close</Button>

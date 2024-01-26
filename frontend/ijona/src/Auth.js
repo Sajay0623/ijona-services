@@ -34,6 +34,10 @@ const AuthPage = ({ onLogin }) => {
       align={"center"}
       justify={"center"}
       bg={useColorModeValue("gray.50", "gray.800")}
+      bgImage="url('https://i.postimg.cc/254CxC1f/10001.png')"
+      bgPosition="left"
+      bgRepeat="no-repeat"
+      
     >
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Box
