@@ -24,7 +24,7 @@ const { data, datalength, page, limit, setPage } = useContext(DataContext);
       <Flex justify={""} align={"center"}>
         <Text>
           Showing {startItem}-
-          {endItem}
+          {endItem} of {datalength}
         </Text>
       </Flex>
       <Box>
