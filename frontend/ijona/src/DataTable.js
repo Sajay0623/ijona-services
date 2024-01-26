@@ -1,5 +1,5 @@
 // DataTable.js
-import React, { useContext, useState } from "react";
+import  { useContext, useRef, useState } from "react";
 import { DataContext } from "./DataContext";
 import { DeleteIcon } from "@chakra-ui/icons";
 import {
@@ -28,30 +28,28 @@ import {
   Text,
   Select,
   Spinner,
+  Heading,
 } from "@chakra-ui/react";
 import Pagination from "./Pagination";
-import PagiComp from "./Page";
+ 
 
-const DataTable = () => {
+const DataTable = ({user , logout}) => {
   const {
     data,
     setLimit,
     limit,
-    datalength,
     setData,
     setName,
     setEmail,
     addData,
-    editData,
     deleteData,
-    initialData,
     loading
   } = useContext(DataContext);
    
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const initialRef = React.useRef(null);
-  const finalRef = React.useRef(null);
+  const initialRef = useRef(null);
+  const finalRef = useRef(null);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [editedName, setEditedName] = useState("");
   const [editedEmail, setEditedEmail] = useState("");
@@ -86,11 +84,17 @@ const DataTable = () => {
     );
   }
   return (
-    <Box>
-      <Flex mt={"40px"} mb={"40px"} justifyContent="right">
-        <Button bg={"#4F6F52"} color={"white"} mr={"30px"} onClick={onOpen}>
-          ADD
-        </Button>
+    <Box width={"95%"}>
+      <Flex mt={"40px"} mb={"40px"} justifyContent="space-between">
+        <Heading ml={"20px"}> {user}</Heading>
+        <Box>
+          <Button bg={"#4F6F52"} color={"white"} mr={"10px"} onClick={onOpen}>
+            ADD
+          </Button>
+          <Button bg={"#4F6F52"} color={"red"} onClick={logout}>
+            Logout
+          </Button>
+        </Box>
       </Flex>
       <Modal
         initialFocusRef={initialRef}
@@ -130,7 +134,7 @@ const DataTable = () => {
       </Modal>
 
       <TableContainer>
-        <Table variant="simple" width={"95%"} margin={"auto"}>
+        <Table variant="simple" margin={"auto"}>
           <Thead bg="#4F6F52">
             <Tr>
               <Th color={"white"} textAlign="center">
@@ -152,7 +156,7 @@ const DataTable = () => {
               <Tr key={item.id} borderBottom="1px solid gray">
                 <Td textAlign={"center"}>{item.id}</Td>
                 <Td textAlign={"center"}>{item.name}</Td>
-                <Td textAlign={"center"} >{item.email}</Td>
+                <Td textAlign={"center"}>{item.email}</Td>
                 <Td>
                   <Flex justify={"space-around"}>
                     <Button

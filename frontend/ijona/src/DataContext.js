@@ -1,6 +1,6 @@
 // DataContext.js
 import React, { createContext, useEffect, useState } from "react";
-import axios from "axios";
+ 
 
 // creation of context
 const DataContext = createContext();

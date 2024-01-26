@@ -9,7 +9,6 @@ import {
   Checkbox,
   Stack,
   Button,
-  Heading,
   Text,
   useColorModeValue,
   InputRightElement,

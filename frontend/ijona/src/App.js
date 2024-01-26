@@ -20,9 +20,7 @@ const App = () => {
     <div>
       {user ? (
         <Box>
-          <Heading ml={"20px"}> {user}</Heading>
-
-          <DataTable />
+          <DataTable user = {user} logout = {handleLogout} />
         </Box>
       ) : (
         <AuthPage onLogin={handleLogin} />
